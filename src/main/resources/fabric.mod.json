@@ -22,7 +22,7 @@
 
   "entrypoints": {
     "client": [
-      "dev.lunasa.skinlayers.SkinLayersEntrypoint"
+      "org.polyfrost.skinlayers.SkinLayersEntrypoint"
     ]
   },
 

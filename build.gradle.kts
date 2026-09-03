@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.ploceus)
 }
 
-group = "dev.lunasa"
+group = "org.polyfrost"
 version = libs.versions.skin.layers.get()
 
 repositories {
