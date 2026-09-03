@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.ploceus)
 }
 
+ploceus.setIntermediaryGeneration(2)
+
 group = "org.polyfrost"
 version = libs.versions.skin.layers.get()
 
@@ -19,6 +21,8 @@ dependencies {
 
     modImplementation(libs.devauth.fabric)
     modImplementation(libs.fabric.loader)
+
+    ploceus.dependOsl(libs.versions.osl.get())
 }
 
 tasks.processResources {

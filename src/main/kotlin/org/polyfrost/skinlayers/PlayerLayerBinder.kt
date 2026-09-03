@@ -2,6 +2,7 @@ package org.polyfrost.skinlayers
 
 import org.polyfrost.skinlayers.render.CompiledMesh
 import org.polyfrost.skinlayers.render.MeshHost
+import org.polyfrost.skinlayers.config.SkinLayersConfig
 import org.polyfrost.skinlayers.render.MeshOffset
 import org.polyfrost.skinlayers.skin.SkinMeshCache
 import net.minecraft.client.MinecraftClient
@@ -27,19 +28,18 @@ object PlayerLayerBinder {
 
         if (!firstPerson) {
             val camera = client.cameraEntity ?: return
-            val lod = SkinLayers.config.renderDistanceLOD.toDouble()
+            val lod = SkinLayersConfig.renderDistanceLOD.get().toDouble()
             if (player.squaredDistanceTo(camera) > lod * lod) return
         }
 
         val meshes = SkinMeshCache.forPlayer(player.skinTexture, slim) ?: return
-        val config = SkinLayers.config
 
-        if (config.enableHat && !wearsMobHead(player)) attach(model.hat, meshes.head, MeshOffset.HEAD)
-        if (config.enableJacket) attach(model.jacket, meshes.body, MeshOffset.BODY)
-        if (config.enableLeftSleeve) attach(model.leftSleeve, meshes.leftArm, armOffset(mirrored = false, slim = slim))
-        if (config.enableRightSleeve) attach(model.rightSleeve, meshes.rightArm, armOffset(mirrored = true, slim = slim))
-        if (config.enableLeftPants) attach(model.leftPants, meshes.leftLeg, MeshOffset.LEG)
-        if (config.enableRightPants) attach(model.rightPants, meshes.rightLeg, MeshOffset.LEG)
+        if (SkinLayersConfig.enableHat.get() && !wearsMobHead(player)) attach(model.hat, meshes.head, MeshOffset.HEAD)
+        if (SkinLayersConfig.enableJacket.get()) attach(model.jacket, meshes.body, MeshOffset.BODY)
+        if (SkinLayersConfig.enableLeftSleeve.get()) attach(model.leftSleeve, meshes.leftArm, armOffset(mirrored = false, slim = slim))
+        if (SkinLayersConfig.enableRightSleeve.get()) attach(model.rightSleeve, meshes.rightArm, armOffset(mirrored = true, slim = slim))
+        if (SkinLayersConfig.enableLeftPants.get()) attach(model.leftPants, meshes.leftLeg, MeshOffset.LEG)
+        if (SkinLayersConfig.enableRightPants.get()) attach(model.rightPants, meshes.rightLeg, MeshOffset.LEG)
     }
 
     fun clear(model: PlayerEntityModel) {

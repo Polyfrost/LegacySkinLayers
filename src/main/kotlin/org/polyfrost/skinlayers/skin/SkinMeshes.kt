@@ -1,6 +1,6 @@
 package org.polyfrost.skinlayers.skin
 
-import org.polyfrost.skinlayers.SkinLayers
+import org.polyfrost.skinlayers.config.SkinLayersConfig
 import org.polyfrost.skinlayers.mesh.BoxLayout
 import org.polyfrost.skinlayers.mesh.LayerMesher
 import org.polyfrost.skinlayers.mesh.SkinPixels
@@ -53,7 +53,7 @@ class SkinMeshes(
             topPivot: Boolean,
             pivotOffset: Float = 0f,
         ): CompiledMesh? {
-            val quads = LayerMesher(pixels, box, SkinLayers.config.fastRender).build(topPivot, pivotOffset)
+            val quads = LayerMesher(pixels, box, SkinLayersConfig.fastRender.get()).build(topPivot, pivotOffset)
             return quads?.let(::CompiledMesh)
         }
     }

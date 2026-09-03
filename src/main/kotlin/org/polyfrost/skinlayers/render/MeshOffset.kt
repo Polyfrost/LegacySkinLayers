@@ -1,7 +1,6 @@
 package org.polyfrost.skinlayers.render
 
 import com.mojang.blaze3d.platform.GlStateManager
-import org.polyfrost.skinlayers.SkinLayers
 import org.polyfrost.skinlayers.config.SkinLayersConfig
 
 class MeshOffset(
@@ -12,20 +11,19 @@ class MeshOffset(
 ) {
 
     fun apply() {
-        val config = SkinLayers.config
-        if (shape == MeshShape.HEAD) applyHead(config) else applyLimb(config)
+        if (shape == MeshShape.HEAD) applyHead() else applyLimb()
     }
 
-    private fun applyHead(config: SkinLayersConfig) {
-        val voxelSize = if (skull) config.skullVoxelSize else config.headVoxelSize
+    private fun applyHead() {
+        val voxelSize = if (skull) SkinLayersConfig.skullVoxelSize.get() else SkinLayersConfig.headVoxelSize.get()
         GlStateManager.translate(0f, -HEAD_PIVOT, 0f)
         GlStateManager.scale(voxelSize, voxelSize, voxelSize)
         GlStateManager.translate(0f, HEAD_PIVOT - HEAD_DROP, 0f)
     }
 
-    private fun applyLimb(config: SkinLayersConfig) {
-        val scale = if (firstPerson) config.firstPersonPixelScaling else config.baseVoxelSize
-        val widthScale = if (shape == MeshShape.BODY) config.bodyVoxelWidthSize else scale
+    private fun applyLimb() {
+        val scale = if (firstPerson) SkinLayersConfig.firstPersonPixelScaling.get() else SkinLayersConfig.baseVoxelSize.get()
+        val widthScale = if (shape == MeshShape.BODY) SkinLayersConfig.bodyVoxelWidthSize.get() else scale
         GlStateManager.scale(widthScale, HEIGHT_SCALE, scale)
 
         val inset = if (mirrored) -shape.inset else shape.inset

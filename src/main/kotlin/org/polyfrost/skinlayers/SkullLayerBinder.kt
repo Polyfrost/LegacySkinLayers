@@ -2,6 +2,7 @@ package org.polyfrost.skinlayers
 
 import com.mojang.authlib.GameProfile
 import com.mojang.authlib.minecraft.MinecraftProfileTexture
+import org.polyfrost.skinlayers.config.SkinLayersConfig
 import org.polyfrost.skinlayers.render.MeshHost
 import org.polyfrost.skinlayers.render.MeshOffset
 import org.polyfrost.skinlayers.skin.SkinMeshCache
@@ -20,9 +21,8 @@ object SkullLayerBinder {
         val host = overlay as? MeshHost ?: return
         host.attach(null, null)
 
-        val config = SkinLayers.config
-        if (!config.enableSkulls) return
-        if (itemRender && !config.enableSkullsItems) return
+        if (!SkinLayersConfig.enableSkulls.get()) return
+        if (itemRender && !SkinLayersConfig.enableSkullsItems.get()) return
         if (profile == null) return
 
         val mesh = SkinMeshCache.forSkull(skinOf(profile))?.head ?: return
